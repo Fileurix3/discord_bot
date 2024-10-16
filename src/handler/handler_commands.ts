@@ -4,15 +4,21 @@ import {
   ActionRowBuilder,
   ButtonStyle,
   ButtonBuilder,
+  Interaction,
+  Client,
+  TextChannel,
 } from "discord.js";
 
-export default async function handleCommands(interaction, client) {
+export default async function handlerCommands(
+  interaction: Interaction,
+  client: Client
+): Promise<void> {
   try {
     if (!interaction.isChatInputCommand()) return;
 
     if (interaction.commandName === "report") {
-      const user = interaction.options.getUser("user");
-      const reason = interaction.options.getString("reason");
+      const user = interaction.options.getUser("user", true);
+      const reason = interaction.options.getString("reason", true);
 
       const reportEmbed = new EmbedBuilder()
         .setColor(embedColors.defaultEmbedColor)
@@ -23,9 +29,7 @@ export default async function handleCommands(interaction, client) {
           { name: "Reason", value: reason, inline: false }
         );
 
-      await interaction.reply({ embeds: [reportEmbed] });
-
-      const channel = await client.channels.fetch(reportChannelId);
+      await interaction.reply({ embeds: [reportEmbed], ephemeral: true });
 
       const newReportEmbed = new EmbedBuilder()
         .setColor(embedColors.defaultEmbedColor)
@@ -40,7 +44,7 @@ export default async function handleCommands(interaction, client) {
           { name: "Reason", value: reason, inline: false }
         );
 
-      const actionRow = new ActionRowBuilder().addComponents(
+      const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder()
           .setCustomId("ignore_report")
           .setLabel("Ignore")
@@ -51,16 +55,25 @@ export default async function handleCommands(interaction, client) {
           .setStyle(ButtonStyle.Success)
       );
 
-      await channel.send({
-        embeds: [newReportEmbed],
-        components: [actionRow],
-      });
+      const channel = (await client.channels.fetch(
+        reportChannelId
+      )) as TextChannel;
+
+      if (channel == null) {
+        throw new Error("channel not found");
+      } else {
+        await channel.send({
+          embeds: [newReportEmbed],
+          components: [actionRow],
+        });
+      }
     } else {
-      throw new Error("channel not found");
+      throw new Error("Unknown command");
     }
-  } catch (err) {
-    await interaction.reply({
-      content: "An error occurred: " + err.message,
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    await (interaction as any).reply({
+      content: "An error occurred: " + errorMessage,
       ephemeral: true,
     });
   }

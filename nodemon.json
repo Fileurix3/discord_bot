@@ -1,0 +1,5 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "exec": "npx tsx src/index.ts && npx tsx src/slash_commands.ts"
+}

@@ -1,11 +1,12 @@
 {
   "name": "discord_bot",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/slash_commands.js && node src/index.js",
-    "dev": "node src/slash_commands.js && nodemon src/index.js"
+    "build": "npx tsc",
+    "start": "node build/slash_commands.js && node build/index.js",
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,8 @@
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "@types/node": "^22.7.5",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.6.3"
   }
 }

@@ -1,4 +1,4 @@
-const embedColors = {
+const embedColors: Record<string, any> = {
   defaultEmbedColor: "#38c122",
   redEmbedColor: "#c12222",
   reportProcessedEmbedColor: "#ffcc00",
