@@ -31,63 +31,15 @@ async function showIgnoredReportModal(interaction) {
   }
 }
 
-async function ignoreReport(interaction) {
+async function ignoreReportServices(interaction) {
   try {
     const originalEmbedFields = interaction.message.embeds[0].fields;
-
     const feedback = interaction.fields.getTextInputValue(
       "ignore_report_feedback_input"
     );
 
-    let updateEmbed = new EmbedBuilder()
-      .setColor(embedColors.redEmbedColor)
-      .setTitle("Report Ignored")
-      .addFields([
-        {
-          name: "Ignored by",
-          value: `<@${interaction.user.id}>`,
-          inline: false,
-        },
-      ])
-      .setDescription(
-        `
-          **Sender:** ${originalEmbedFields[0]["value"]} 
-          **Reported User:** ${originalEmbedFields[1]["value"]}
-          **Reason:** ${originalEmbedFields[2]["value"]}
-        `
-      );
-
-    await interaction.update({
-      embeds: [updateEmbed],
-      components: [],
-    });
-
-    const ignoreReportEmbed = new EmbedBuilder()
-      .setColor(embedColors.redEmbedColor)
-      .setTitle("Your report has been ignored")
-      .addFields([
-        {
-          name: "feedback",
-          value: feedback,
-          inline: false,
-        },
-        {
-          name: "Ignored by",
-          value: `<@${interaction.user.id}>`,
-          inline: false,
-        },
-      ])
-      .setDescription(
-        `
-          **Reported User:** ${originalEmbedFields[1]["value"]}
-          **Reason:** ${originalEmbedFields[2]["value"]}
-        `
-      );
-
-    const senderId = originalEmbedFields[0].value.match(/[0-9]+/g)[0];
-    const sender = await interaction.client.users.fetch(senderId);
-
-    await sender.send({ embeds: [ignoreReportEmbed] });
+    updateEmbed(interaction, originalEmbedFields);
+    sendMessage(interaction, originalEmbedFields, feedback);
   } catch (err) {
     await interaction.reply({
       content: "An error occurred: " + err.message,
@@ -96,4 +48,58 @@ async function ignoreReport(interaction) {
   }
 }
 
-export { showIgnoredReportModal, ignoreReport };
+async function updateEmbed(interaction, originalEmbedFields) {
+  const updateEmbed = new EmbedBuilder()
+    .setColor(embedColors.redEmbedColor)
+    .setTitle("Report Ignored")
+    .addFields([
+      {
+        name: "Ignored by",
+        value: `<@${interaction.user.id}>`,
+        inline: false,
+      },
+    ])
+    .setDescription(
+      `
+          **Sender:** ${originalEmbedFields[0]["value"]} 
+          **Reported User:** ${originalEmbedFields[1]["value"]}
+          **Reason:** ${originalEmbedFields[2]["value"]}
+        `
+    );
+
+  await interaction.update({
+    embeds: [updateEmbed],
+    components: [],
+  });
+}
+
+async function sendMessage(interaction, originalEmbedFields, feedback) {
+  const ignoreReportEmbed = new EmbedBuilder()
+    .setColor(embedColors.redEmbedColor)
+    .setTitle("Your report has been ignored")
+    .addFields([
+      {
+        name: "feedback",
+        value: feedback,
+        inline: false,
+      },
+      {
+        name: "Ignored by",
+        value: `<@${interaction.user.id}>`,
+        inline: false,
+      },
+    ])
+    .setDescription(
+      `
+          **Reported User:** ${originalEmbedFields[1]["value"]}
+          **Reason:** ${originalEmbedFields[2]["value"]}
+        `
+    );
+
+  const senderId = originalEmbedFields[0].value.match(/[0-9]+/g)[0];
+  const sender = await interaction.client.users.fetch(senderId);
+
+  await sender.send({ embeds: [ignoreReportEmbed] });
+}
+
+export { showIgnoredReportModal, ignoreReportServices };

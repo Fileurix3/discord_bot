@@ -85,40 +85,32 @@ async function sendWarningToUser(interaction) {
     const sender = await interaction.client.users.fetch(senderId);
     const reportUser = await interaction.client.users.fetch(reportUserId);
 
-    if (!sender || !reportUser) {
-      await interaction.reply({
-        content: "Unable to find one of the users.",
-        ephemeral: true,
-      });
-      return;
-    }
-
-    const embedReportAccepted = new EmbedBuilder()
+    const notifyingUserReportReviewed = new EmbedBuilder()
       .setColor(embedColors.reportProcessedEmbedColor)
       .setTitle("Report accepted")
       .setDescription("User has been sent an infringement warning")
       .addFields([{ name: "Report user", value: reportUser.tag }]);
 
-    const infringementWarningEmbed = new EmbedBuilder()
+    const sendInfringementWarningEmbed = new EmbedBuilder()
       .setColor(embedColors.redEmbedColor)
       .setTitle("You have been sent an infraction warning")
       .setDescription(infringementWarning);
 
-    const newOriginalEmbed = new EmbedBuilder()
+    const updateOriginalEmbed = new EmbedBuilder()
       .setColor(embedColors.reportProcessedEmbedColor)
       .setTitle("Report Processed")
       .setDescription(
-        "The report has been processed and a warning has been sent."
+        "The report has been processed and a warning has been sent"
       )
       .addFields([
-        { name: "Reported User", value: reportUser.tag },
+        { name: "Reported User", value: `<@${reportUser.id}>` },
         { name: "Warning Message", value: infringementWarning },
       ]);
 
-    await originalEmbed.edit({ embeds: [newOriginalEmbed], components: [] });
+    await originalEmbed.edit({ embeds: [updateOriginalEmbed], components: [] });
 
-    await sender.send({ embeds: [embedReportAccepted] });
-    await reportUser.send({ embeds: [infringementWarningEmbed] });
+    await sender.send({ embeds: [notifyingUserReportReviewed] });
+    await reportUser.send({ embeds: [sendInfringementWarningEmbed] });
 
     await interaction.reply({
       content: "Warning sent successfully",
