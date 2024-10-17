@@ -1,4 +1,4 @@
-import { embedColors } from "../constants.js";
+import { embedColors } from "../../constants.js";
 import {
   EmbedBuilder,
   ActionRowBuilder,
@@ -100,7 +100,7 @@ class AcceptReport {
       const reportUser = await interaction.client.users.fetch(reportUserId);
 
       const notifyingUserReportReviewed = new EmbedBuilder()
-        .setColor(embedColors.reportProcessedEmbedColor)
+        .setColor(embedColors.processedEmbedColor)
         .setTitle("Report accepted")
         .setDescription("User has been sent an infringement warning")
         .addFields([{ name: "Report user", value: reportUser.tag }]);
@@ -111,7 +111,7 @@ class AcceptReport {
         .setDescription(infringementWarning);
 
       const updateOriginalEmbed = new EmbedBuilder()
-        .setColor(embedColors.reportProcessedEmbedColor)
+        .setColor(embedColors.processedEmbedColor)
         .setTitle("Report Processed")
         .setDescription(
           "The report has been processed and a warning has been sent"

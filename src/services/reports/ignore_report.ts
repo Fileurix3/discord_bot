@@ -1,4 +1,4 @@
-import { embedColors } from "../constants.js";
+import { embedColors } from "../../constants.js";
 import {
   EmbedBuilder,
   ActionRowBuilder,

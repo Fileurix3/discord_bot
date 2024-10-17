@@ -1,13 +1,7 @@
-import { embedColors, reportChannelId } from "../constants.js";
+import { questionCommand } from "../services/commands/question_command.js";
+import { reportCommand } from "../services/commands/report_commands.js";
 import { HandlerInteraction } from "./base_handler.js";
-import {
-  EmbedBuilder,
-  ActionRowBuilder,
-  ButtonStyle,
-  ButtonBuilder,
-  Interaction,
-  TextChannel,
-} from "discord.js";
+import { Interaction } from "discord.js";
 
 export class HandlerCommands extends HandlerInteraction {
   async handler(interaction: Interaction): Promise<void> {
@@ -15,60 +9,9 @@ export class HandlerCommands extends HandlerInteraction {
       if (!interaction.isChatInputCommand()) return;
 
       if (interaction.commandName === "report") {
-        const user = interaction.options.getUser("user", true);
-        const reason = interaction.options.getString("reason", true);
-
-        const reportEmbed = new EmbedBuilder()
-          .setColor(embedColors.defaultEmbedColor)
-          .setTitle("Report sent")
-          .addFields(
-            {
-              name: "Sender",
-              value: `<@${interaction.user.id}>`,
-              inline: true,
-            },
-            { name: "Reported User", value: `<@${user.id}>`, inline: true },
-            { name: "Reason", value: reason, inline: false }
-          );
-
-        await interaction.reply({ embeds: [reportEmbed], ephemeral: true });
-
-        const newReportEmbed = new EmbedBuilder()
-          .setColor(embedColors.defaultEmbedColor)
-          .setTitle("New report")
-          .addFields(
-            {
-              name: "Sender",
-              value: `<@${interaction.user.id}>`,
-              inline: true,
-            },
-            { name: "Reported User", value: `<@${user.id}>`, inline: true },
-            { name: "Reason", value: reason, inline: false }
-          );
-
-        const actionRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
-          new ButtonBuilder()
-            .setCustomId("ignore_report")
-            .setLabel("Ignore")
-            .setStyle(ButtonStyle.Danger),
-          new ButtonBuilder()
-            .setCustomId("accept_report")
-            .setLabel("Accept")
-            .setStyle(ButtonStyle.Success)
-        );
-
-        const guild = interaction.guild;
-        if (!guild) throw new Error("Guild not found");
-
-        const channel = guild.channels.cache.get(
-          reportChannelId
-        ) as TextChannel;
-
-        if (!channel) throw new Error("channel not found");
-        await channel.send({
-          embeds: [newReportEmbed],
-          components: [actionRow],
-        });
+        reportCommand(interaction);
+      } else if (interaction.commandName === "question") {
+        questionCommand(interaction);
       } else {
         throw new Error("Unknown command");
       }

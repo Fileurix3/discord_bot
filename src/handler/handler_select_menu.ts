@@ -1,5 +1,5 @@
 import { Interaction } from "discord.js";
-import { AcceptReport } from "../services/accept_report.js";
+import { AcceptReport } from "../services/reports/accept_report.js";
 import { HandlerInteraction } from "./base_handler.js";
 
 export class HandlerSelectMenu extends HandlerInteraction {

@@ -1,9 +1,10 @@
 const embedColors: Record<string, any> = {
   defaultEmbedColor: "#38c122",
   redEmbedColor: "#c12222",
-  reportProcessedEmbedColor: "#ffcc00",
+  processedEmbedColor: "#ffcc00",
 };
 
 const reportChannelId = "1295338462542823455";
+const questionChannelId = "1295338462542823455";
 
-export { embedColors, reportChannelId };
+export { embedColors, reportChannelId, questionChannelId };
