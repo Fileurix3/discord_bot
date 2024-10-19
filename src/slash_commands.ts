@@ -1,36 +1,11 @@
-import { REST, Routes } from "discord.js";
+import { PermissionFlagsBits, REST, Routes } from "discord.js";
 import "dotenv/config";
 
 const commands = [
   {
-    name: "report",
-    description: "Report a user",
-    options: [
-      {
-        name: "user",
-        type: 6,
-        description: "The user to report",
-        required: true,
-      },
-      {
-        name: "reason",
-        type: 3,
-        description: "Reason for the report",
-        required: true,
-      },
-    ],
-  },
-  {
-    name: "question",
-    description: "Question the moderators",
-    options: [
-      {
-        name: "question",
-        type: 3,
-        description: "Your question",
-        required: true,
-      },
-    ],
+    name: "help_panel",
+    description: "show help panel",
+    default_member_permissions: PermissionFlagsBits.Administrator.toString(),
   },
 ];
 

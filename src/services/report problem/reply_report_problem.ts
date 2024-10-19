@@ -11,16 +11,18 @@ import {
 import { embedColors } from "../../constants.js";
 import { handlerError } from "../../index.js";
 
-class QuestionReply {
-  public async showQuestionReplyModal(interaction: Interaction): Promise<void> {
+class ReplyReportProblem {
+  public async showReplyReportProblemModal(
+    interaction: Interaction
+  ): Promise<void> {
     try {
       const modal = new ModalBuilder()
-        .setCustomId("question_reply_modal")
-        .setTitle("Answer this question");
+        .setCustomId("reply_report_problem_modal")
+        .setTitle("Your feedback");
 
       const questionInput = new TextInputBuilder()
-        .setCustomId("question_reply_input")
-        .setLabel("The answer to the question...")
+        .setCustomId("reply_report_problem_input")
+        .setLabel("Your feedback...")
         .setStyle(TextInputStyle.Paragraph)
         .setRequired(true);
 
@@ -35,16 +37,16 @@ class QuestionReply {
     }
   }
 
-  public async questionReplyServices(interaction: Interaction): Promise<void> {
+  public async replyReportProblem(interaction: Interaction): Promise<void> {
     try {
       const messageInteraction = interaction as MessageComponentInteraction;
       const originalEmbedFields = messageInteraction.message.embeds[0].fields;
 
       const modalTextInteraction = interaction as ModalSubmitInteraction;
       const questionReplay = modalTextInteraction.fields.getTextInputValue(
-        "question_reply_input"
+        "reply_report_problem_input"
       );
-
+      console.log(originalEmbedFields);
       this.updateEmbed(interaction, originalEmbedFields);
       this.sendMessage(interaction, originalEmbedFields, questionReplay);
     } catch (err: unknown) {
@@ -58,7 +60,7 @@ class QuestionReply {
   ): Promise<void> {
     const updateEmbed = new EmbedBuilder()
       .setColor(embedColors.secondaryEmbedColor)
-      .setTitle("The question has been answered")
+      .setTitle("Feedback was given on this problem")
       .addFields([
         {
           name: "answered by",
@@ -69,7 +71,7 @@ class QuestionReply {
       .setDescription(
         `
           **Sender:** ${originalEmbedFields[1]["value"]} 
-          **Question:** ${originalEmbedFields[0]["value"]}
+          **Problem:** ${originalEmbedFields[0]["value"]}
         `
       );
 
@@ -82,15 +84,15 @@ class QuestionReply {
   private async sendMessage(
     interaction: Interaction,
     originalEmbedFields: any,
-    questionReplay: string
+    problemReplay: string
   ): Promise<void> {
     const responseEmbed = new EmbedBuilder()
       .setColor(embedColors.mainEmbedColor)
-      .setTitle("Your question has been answered")
+      .setTitle("Your problem has been answered")
       .addFields([
         {
           name: "response",
-          value: questionReplay,
+          value: problemReplay,
           inline: false,
         },
         {
@@ -101,7 +103,7 @@ class QuestionReply {
       ])
       .setDescription(
         `
-          **Question:** ${originalEmbedFields[0]["value"]}
+          **Problem:** ${originalEmbedFields[0]["value"]}
         `
       );
 
@@ -118,4 +120,4 @@ class QuestionReply {
   }
 }
 
-export { QuestionReply };
+export { ReplyReportProblem };

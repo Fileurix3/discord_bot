@@ -1,5 +1,5 @@
-import { questionCommand } from "../services/commands/question_command.js";
-import { reportCommand } from "../services/commands/report_commands.js";
+import { handlerError } from "../index.js";
+import { showHelpPanel } from "../services/commands/help_panel_command.js";
 import { HandlerInteraction } from "./base_handler.js";
 import { Interaction } from "discord.js";
 
@@ -8,15 +8,13 @@ export class HandlerCommands extends HandlerInteraction {
     try {
       if (!interaction.isChatInputCommand()) return;
 
-      if (interaction.commandName === "report") {
-        reportCommand(interaction);
-      } else if (interaction.commandName === "question") {
-        questionCommand(interaction);
+      if (interaction.commandName === "help_panel") {
+        showHelpPanel(interaction);
       } else {
         throw new Error("Unknown command");
       }
     } catch (err: unknown) {
-      this.handlerError(interaction, err);
+      handlerError(interaction, err);
     }
   }
 }
