@@ -6,30 +6,18 @@ Discord bot for the convenience of users on the server
 
 ## What does the bot do?
 
-- `/report <user> <reason>`:
+- `/help_panel`:
+  This command can only be entered by the administrator (preferably entered in a channel where users cannot write).
 
-  When entering this command into a separate `reports` channel, a message from the bot comes in which there are fields:
+  when entering this command, embed appears with several buttons:
 
-  - `sender`: Who sent the report.
-  - `report user`: The user who was the subject of the report.
-  - `reason`: Reason for report.
+  - `Ask a question`: By clicking this button, the user can ask a question to the moderators of the server, this question will be sent to a separate channel for moderators, and after answering this question the user will receive an answer from the bot in a private message.
 
-  This message has two buttons:
+    **for example:** (when a new voice channel will be available)
 
-  - `Ignore`: When you click `Ignore` button, the user who sent the report receives a message that his report has been ignored.
-  - `Accept`: When you click the `Accept` button you will have to choose what kind of punishment to give to the user “Warning, etc” and then the user will receive a message about the punishment.
+  - `Report a problem`: Clicking on this button performs the same action as clicking on the `Ask a question` button, but now the user will be able to report a problem.
 
-- `/question <question>`:
-
-  When entering this command into a separate `questions` channel, a message from the bot comes in which there are fields:
-
-  - `Question`: The question sent by the user.
-
-  - `Asked a question`: User who submitted a question.
-
-  This message has one buttons:
-
-  - `Reply`: When clicking the `Reply` button, the user who sent the question receives a message from the bot with the answer to this question and the name of the person who answered the question
+    **for example:** (I can't see the N text channel)
 
 ## dependencies
 
