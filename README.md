@@ -11,13 +11,9 @@ Discord bot for the convenience of users on the server
 
   when entering this command, embed appears with several buttons:
 
-  - `Ask a question`: By clicking this button, the user can ask a question to the moderators of the server, this question will be sent to a separate channel for moderators, and after answering this question the user will receive an answer from the bot in a private message.
+  - `Ask a question`: By clicking on this button, the user can ask a question on the asked question a new text channel will be created which will be seen only by the one who asked this question and one of the moderators.
 
-    **for example:** (when a new voice channel will be available)
-
-  - `Report a problem`: Clicking on this button performs the same action as clicking on the `Ask a question` button, but now the user will be able to report a problem.
-
-    **for example:** (I can't see the N text channel)
+    A moderator can close this text feed by answering a user's question using the command: `/close_ticket`.
 
 ## dependencies
 

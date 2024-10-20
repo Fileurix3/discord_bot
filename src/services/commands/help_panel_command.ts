@@ -14,7 +14,7 @@ export async function showHelpPanel(interaction: Interaction): Promise<void> {
       .setColor(embedColors.mainEmbedColor)
       .setTitle("Help panel")
       .setDescription(
-        "If you want to ask a question or report a problem\n" +
+        "If you want to ask a question to the moderators of the server\n" +
           "**please use this panel**"
       )
       .addFields();
@@ -23,11 +23,7 @@ export async function showHelpPanel(interaction: Interaction): Promise<void> {
       new ButtonBuilder()
         .setCustomId("ask_question")
         .setLabel("Ask a question")
-        .setStyle(ButtonStyle.Success),
-      new ButtonBuilder()
-        .setCustomId("report_problem")
-        .setLabel("Report a problem")
-        .setStyle(ButtonStyle.Primary)
+        .setStyle(ButtonStyle.Success)
     );
 
     await (interaction as any).reply({
