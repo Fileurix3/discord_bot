@@ -7,6 +7,11 @@ const commands = [
     description: "show help panel",
     default_member_permissions: PermissionFlagsBits.Administrator.toString(),
   },
+  {
+    name: "close_ticket",
+    description: "close ticket",
+    default_member_permissions: PermissionFlagsBits.KickMembers.toString(),
+  },
 ];
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN as string);

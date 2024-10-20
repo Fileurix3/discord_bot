@@ -3,7 +3,11 @@ import { handlerInteraction } from "./handler/handler_interaction.js";
 import "dotenv/config";
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildPresences,
+  ],
 });
 
 client.on("interactionCreate", handlerInteraction);
