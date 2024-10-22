@@ -8,12 +8,12 @@ const handlerModalSubmit = new HandlerModalSubmit();
 const handlerCommands = new HandlerCommands();
 
 async function handlerInteraction(interaction: Interaction): Promise<void> {
-  if (interaction.isButton()) {
+  if (interaction.isChatInputCommand()) {
+    await handlerCommands.handler(interaction);
+  } else if (interaction.isButton()) {
     await handlerButton.handler(interaction);
   } else if (interaction.isModalSubmit()) {
     await handlerModalSubmit.handler(interaction);
-  } else {
-    await handlerCommands.handler(interaction);
   }
 }
 

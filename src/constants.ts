@@ -4,6 +4,7 @@ const embedColors: Record<string, any> = {
   redEmbedColor: "#c12222",
 };
 
-const questionChannelId = "1295338462542823455";
+const targetChannelId = "1267795058795741219";
+const prefixChannel = "!";
 
-export { embedColors, questionChannelId };
+export { embedColors, targetChannelId, prefixChannel };

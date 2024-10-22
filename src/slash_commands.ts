@@ -1,4 +1,9 @@
-import { PermissionFlagsBits, REST, Routes } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  PermissionFlagsBits,
+  REST,
+  Routes,
+} from "discord.js";
 import "dotenv/config";
 
 const commands = [
@@ -11,6 +16,18 @@ const commands = [
     name: "close_ticket",
     description: "close ticket",
     default_member_permissions: PermissionFlagsBits.KickMembers.toString(),
+  },
+  {
+    name: "rename_voice",
+    description: "rename voice",
+    options: [
+      {
+        name: "name",
+        description: "name voice",
+        required: true,
+        type: ApplicationCommandOptionType.String,
+      },
+    ],
   },
 ];
 
