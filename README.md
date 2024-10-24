@@ -10,9 +10,9 @@ Discord bot for the convenience of users on the server
 
   This command can only be entered by the administrator (preferably entered in a channel where users cannot write).
 
-  when entering this command, embed appears with several buttons:
+  after entering the command, embed with `Ask a question` button appears
 
-  - `Ask a question`: By clicking on this button, the user can ask a question on the asked question a new text channel will be created which will be seen only by the one who asked this question and one of the moderators.
+  - `Ask a question`: By clicking on this button, the user can ask a question, a new text channel will be created for the question asked, which will be visible only to the person who asked the question and to one of the moderators who is chosen at random based on the parameters: **«he is online and has a role called `Moder`»**.
 
     A moderator can close this text feed by answering a user's question using the command: `/close_ticket`.
 
