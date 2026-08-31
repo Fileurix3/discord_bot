@@ -39,7 +39,7 @@ return {
       cmp = true,
       gitsigns = true,
       nvimtree = true,
-      treesitter = true,
+      treesitter = false,
       notify = false,
     },
   },
