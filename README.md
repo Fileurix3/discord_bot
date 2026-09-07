@@ -17,7 +17,7 @@ git clone https://github.com/alexanderjeurissen/ranger_devicons ~/dotfiles/.conf
 
 ## Install:
 
-**dependencies**: `stow hyprland nvim hypridle hyprlock hyprsunset swaybg ranger waybar wofi kitty hyprpolkitagent sxiv pavucontrol nwg-look grim slurp bash-completion`
+**dependencies**: `stow hyprland nvim hypridle hyprlock hyprsunset swaybg ranger waybar wofi kitty hyprpolkitagent sxiv pavucontrol nwg-look grim slurp bash-completion wl-clipboard python-pillow`
 
 ### Copy the repository to your home directory
 
